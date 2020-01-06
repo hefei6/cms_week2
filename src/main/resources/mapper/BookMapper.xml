@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hefei.mapper.BookMapper">
+	
+	<insert id="insertBook" parameterType="com.hefei.bean.Book">
+		insert into book (bid,bname,btype,phone,author,hots) values (#{bid},#{bname},#{btype},#{phone},#{author},#{hots})
+	</insert>
+	
+	<insert id="insertErro">
+		insert into record (bid,errorinfo) values (#{bid},#{errorinfo})
+	</insert>
+	
+	<select id="selectBook" parameterType="map" resultType="com.hefei.bean.Book">
+		select * from book
+		<where>
+			<if test="mohu!=null and mohu!=''">
+				and bname like '%${mohu}%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectHX" parameterType="int" resultType="com.hefei.bean.Book">
+		select * from book where bid = #{bid}
+	</select>
+	
+	<update id="updateBook" parameterType="com.hefei.bean.Book">
+		update book set bname=#{bname},btype=#{btype},phone=#{phone},author=#{author},hots=#{hots},picurl=#{picurl},bdate=#{bdate} where bid=#{bid}
+	</update>
+	
+</mapper>
